@@ -4,7 +4,7 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 from discord.utils import get
 
-import bot_commands
+import bot_commands, embeds
 
 intents = discord.Intents().all()
 client = discord.Client(prefix = '', intents=intents)
@@ -22,10 +22,9 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    # await member.create_dm()
-    # await member.dm_channel.send(
-    #     f'Hi {member.name}, welcome to my Discord server!'
-    # )
+    embedded_dm = embeds.DM_EMBED
+    await member.create_dm()
+    await member.dm_channel.send(embed = embedded_dm)
     if(member.nick == None):
         await member.edit(nick = 'First Last 📛')
 
@@ -35,6 +34,8 @@ async def on_message(message):
         return
     if str(message.type) == 'MessageType.new_member':
         return
+    msg = message.content.split()
+    print(msg)
     if message.content[0] == '$':
         response = BOT.command(message.content)
         color = random.randint(0,16777215)
@@ -66,4 +67,18 @@ async def on_message(message):
         await message.channel.send(embed = embed)
         await message.delete()
 
+    elif message.content[0] == '.' and msg[0][1:].lower() == 'embed':
+        text = ''
+        if(msg[2].startswith('\"') and msg[-2][-1]):
+            for word in msg[2:-1]:
+                text += (word + ' ')
+        embed = discord.Embed(
+            title = msg[1],
+            description = text[1:-2],
+            color = int(msg[-1], 16))
+        embed.set_author(name = message.author.nick, icon_url = message.author.avatar_url)
+        embed.set_thumbnail(url = message.author.avatar_url)
+        await message.channel.send(embed = embed)
+        await message.delete()       
+    
 client.run(TOKEN)
