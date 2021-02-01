@@ -15,11 +15,8 @@ BOT = bot_commands.spiritBot()
 
 @client.event
 async def on_ready():
-    guild = discord.utils.get(client.guilds, name= 'InterVarsity Newark')
-    print(
-        f'{client.user} is connected to the following guild:\n'
-        f'{guild.name}(id: {guild.id})'
-    )
+    await client.change_presence(status = discord.Status.online, activity = discord.Game("Reading the Bible"))
+    print("I am online")
 
 @client.event
 async def on_message(message):
