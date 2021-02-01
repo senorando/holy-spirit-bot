@@ -164,19 +164,19 @@ class spiritBot:
                 return RES
             elif len(PARAMS) == 1:
                 if PARAMS[0].lower() == 'about':
-                    RES['text'] = "`$about`: Tells you about *Holy Spirit Bot*!"
+                    RES['text'] = "`$about`\n➙ **Description:** Tells you about *Holy Spirit Bot*!"
                     return RES
                 elif PARAMS[0].lower() == 'joke':
-                    RES['text'] = "`$joke`: Returns a random joke."
+                    RES['text'] = "`$joke`\n➙ **Description:** Returns a random joke."
                     return RES
                 elif PARAMS[0].lower() == 'help':
-                    RES['text'] = "`$help <command>`: You're using it right now!"
+                    RES['text'] = "`$help <command>`\n➙ **Description:** You're using it right now!"
                     return RES
                 elif PARAMS[0].lower() == 'yoda':
-                    RES['text'] = "`$yoda <message>`: Translates your inputted message into yoda language!"
+                    RES['text'] = "`$yoda <message>`\n➙ **Description:** Translates your inputted message into yoda language!"
                     return RES
                 elif PARAMS[0].lower() == 'bible':
-                    RES['text'] = "`$bible <book> <chapter> <verse>`: Displays the Bible verse inputted. :)"
+                    RES['text'] = "`$bible <book> <chapter> <verse>`\n➙ **Description:** Displays the Bible verse inputted. :)"
                     return RES
                 RES['text'] = "The command you need help for doesn\'t exist! Talk to the creator of this bot if you'd like to see new features added!"
                 return RES

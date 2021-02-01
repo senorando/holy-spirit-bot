@@ -81,4 +81,21 @@ async def on_message(message):
         await message.channel.send(embed = embed)
         await message.delete()       
     
+    elif message.content[0] == '.' and message.content[1] == '$':
+        if message.content[2:].lower() == 'welcome':
+            await message.channel.send(embed = embeds.WELCOME)
+            await message.delete()
+        elif message.content[2:].lower() == 'nickname':
+            await message.channel.send(embed = embeds.NICKNAME)
+            await message.delete()
+        elif message.content[2:].lower() == 'roles':
+            await message.channel.send(embed = embeds.ROLES)
+            await message.delete()
+        elif message.content[2:].lower() == 'discord':
+            await message.channel.send(embed = embeds.DISCORD)
+            await message.delete()
+        elif message.content[2:].lower() == 'thanks':
+            await message.channel.send(embed = embeds.THANKS)
+            await message.delete()
+
 client.run(TOKEN)
