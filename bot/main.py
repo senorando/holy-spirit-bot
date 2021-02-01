@@ -2,10 +2,12 @@ import discord
 import os, random
 from os.path import join, dirname
 from dotenv import load_dotenv
+from discord.utils import get
 
 import bot_commands
 
-client = discord.Client()
+intents = discord.Intents().all()
+client = discord.Client(prefix = '', intents=intents)
 
 DOTENV_PATH = join(dirname(__file__), "keys.env")
 load_dotenv(DOTENV_PATH)
@@ -20,17 +22,18 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    await member.create_dm()
-    await member.dm_channel.send(
-        f'Hi {member.name}, welcome to my Discord server!'
-    )
+    # await member.create_dm()
+    # await member.dm_channel.send(
+    #     f'Hi {member.name}, welcome to my Discord server!'
+    # )
+    if(member.nick == None):
+        await member.edit(nick = 'First Last 📛')
 
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
     if str(message.type) == 'MessageType.new_member':
-
         return
     if message.content[0] == '$':
         response = BOT.command(message.content)
