@@ -12,10 +12,11 @@ load_dotenv(DOTENV_PATH)
 
 TOKEN = os.getenv('BOT_TOKEN')
 BOT = bot_commands.spiritBot()
+NUM = 0
 
 @client.event
 async def on_ready():
-    await client.change_presence(status = discord.Status.online, activity = discord.Game("Reading the Bible"))
+    await client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.listening, name = 'the Word of God'))
     print("I am online")
 
 @client.event
@@ -24,7 +25,6 @@ async def on_message(message):
         return
     if str(message.type) == 'MessageType.new_member':
         return
-
     if message.content[0] == '!' and message.content[1] == '!':
         response = BOT.command(message.content)
         color = random.randint(0,16777215)
