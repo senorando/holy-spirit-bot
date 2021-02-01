@@ -95,8 +95,14 @@ class spiritBot:
         return embedded_res
     
     def bible_new(self, params):
+        url = 'https://api.scripture.api.bible/v1/bibles'
+        headers = {
+            'api-key': '3ad1f969a079bb8fafa7830e17cdf353',
+        }
+        response = requests.request("GET", url, headers=headers).json()
+        print(response)
 
-        return params
+        return response
 
     def command(self, input):
         RES = {
@@ -104,30 +110,30 @@ class spiritBot:
             'text': '',
             'COM' : '',
         }
-        INVALID_COMMAND = "Command not recognized. Type `!!help` to see the commands"
+        INVALID_COMMAND = "Command not recognized. Type `$help` to see the commands"
         ABOUT = 'Welcome to the InterVarsity Christian Fellowship Newark Discord server! My name is *Holy Spirit Bot* and I\'m here to help spread the love of God!'
-        HELP = ("All commands start with `!!` and are followed by the command and any parameters: " +
-        "\n**1.** `!!about`" + 
+        HELP = ("All commands start with `$` and are followed by the command and any parameters: " +
+        "\n**1.** `$about`" + 
         "\n➙ **Description:** Tells you about *Holy Spirit Bot*!" +
-        "\n**2.** `!!help`" + 
+        "\n**2.** `$help`" + 
         "\n➙ **Description:** Displays all *Holy Spirit Bot* commands!" +
-        "\n**3.**  `!!joke`" + 
+        "\n**3.**  `$joke`" + 
         "\n➙ **Description:** Generates a random joke!" +
-        "\n**4.**  `!!yoda <phrase>`" +
+        "\n**4.**  `$yoda <phrase>`" +
         "\n➙ **Description:** Converts your inputted phrase into yoda language!" + 
-        "\n**5.**  `!!bible <book> <chapter> <verse>`" +
+        "\n**5.**  `$bible <book> <chapter> <verse>`" +
         "\n➙ **Description:** Gets the Bible verse of your choosing! As of right now the version is BBE, but more versions are on the way!" +
-        "\n➙ **Ex:** `!!bible John 3 16`" +
-        "\n➙ **Ex:** `!!bible 1 Timothy 3 4`"
+        "\n➙ **Ex:** `$bible John 3 16`" +
+        "\n➙ **Ex:** `$bible 1 Timothy 3 4`"
         )
-        YODA_FAIL = "Please enter a word or phrase to translate. (Ex: `!!yoda The quick brown fox jumped over the lazy dog`)"
+        YODA_FAIL = "Please enter a word or phrase to translate. (Ex: `$yoda The quick brown fox jumped over the lazy dog`)"
         
-        BIBLE_TOO_MANY = "You\'ve entered too many parameters! The command\'s parameters are as follows: \n\n`!!bible book chapter verse` \nEx: `!!bible Luke 1 1`"
-        BIBLE_TOO_FEW = "You\'ve entered too few parameters! The command\'s parameters are as follows: \n\n`!!bible book chapter verse` \nEx: `!!bible Luke 1 1`"
+        BIBLE_TOO_MANY = "You\'ve entered too many parameters! The command\'s parameters are as follows: \n\n`$bible book chapter verse` \nEx: `$bible Luke 1 1`"
+        BIBLE_TOO_FEW = "You\'ve entered too few parameters! The command\'s parameters are as follows: \n\n`$bible book chapter verse` \nEx: `$bible Luke 1 1`"
         
         CMD_PAR = input.split()
         print("\nCMD_PAR: ", CMD_PAR)
-        if CMD_PAR[0] == "!!":
+        if CMD_PAR[0] == "$":
             COMMAND = CMD_PAR[1].lower()
             print(COMMAND)
             if len(CMD_PAR) > 2:
@@ -135,7 +141,7 @@ class spiritBot:
             else:
                 PARAMS = ""
         else:
-            COMMAND = CMD_PAR[0][2:].lower()
+            COMMAND = CMD_PAR[0][1:].lower()
             print("COMMAND: " + COMMAND)
             if len(CMD_PAR) > 1:
                 PARAMS = CMD_PAR[1:]
@@ -158,19 +164,19 @@ class spiritBot:
                 return RES
             elif len(PARAMS) == 1:
                 if PARAMS[0].lower() == 'about':
-                    RES['text'] = "`!!about`: Tells you about *Holy Spirit Bot*!"
+                    RES['text'] = "`$about`: Tells you about *Holy Spirit Bot*!"
                     return RES
                 elif PARAMS[0].lower() == 'joke':
-                    RES['text'] = "`!!joke`: Returns a random joke."
+                    RES['text'] = "`$joke`: Returns a random joke."
                     return RES
                 elif PARAMS[0].lower() == 'help':
-                    RES['text'] = "`!!help <command>`: You're using it right now!"
+                    RES['text'] = "`$help <command>`: You're using it right now!"
                     return RES
                 elif PARAMS[0].lower() == 'yoda':
-                    RES['text'] = "`!!yoda <message>`: Translates your inputted message into yoda language!"
+                    RES['text'] = "`$yoda <message>`: Translates your inputted message into yoda language!"
                     return RES
                 elif PARAMS[0].lower() == 'bible':
-                    RES['text'] = "`!!bible <book> <chapter> <verse>`: Displays the Bible verse inputted. :)"
+                    RES['text'] = "`$bible <book> <chapter> <verse>`: Displays the Bible verse inputted. :)"
                     return RES
                 RES['text'] = "The command you need help for doesn\'t exist! Talk to the creator of this bot if you'd like to see new features added!"
                 return RES
@@ -179,12 +185,12 @@ class spiritBot:
         elif COMMAND == "joke":
             RES['title'] = 'Random joke!'
             if len(PARAMS) > 0:
-                RES['text'] = "The `joke` command doesn't take any parameters. Try again with `!!joke`"
+                RES['text'] = "The `joke` command doesn't take any parameters. Try again with `$joke`"
                 return RES
             RES['text'] = self.joke()
             return RES
         elif COMMAND == "bible":
-            RES['title'] = 'Incorrect number of parameters for `!!bible` :('
+            RES['title'] = 'Incorrect number of parameters for `$bible` :('
             if len(PARAMS) > 4:
                 RES['text'] = BIBLE_TOO_MANY
                 return RES

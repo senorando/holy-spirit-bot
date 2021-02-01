@@ -12,7 +12,6 @@ load_dotenv(DOTENV_PATH)
 
 TOKEN = os.getenv('BOT_TOKEN')
 BOT = bot_commands.spiritBot()
-NUM = 0
 
 @client.event
 async def on_ready():
@@ -20,12 +19,20 @@ async def on_ready():
     print("I am online")
 
 @client.event
+async def on_member_join(member):
+    await member.create_dm()
+    await member.dm_channel.send(
+        f'Hi {member.name}, welcome to my Discord server!'
+    )
+
+@client.event
 async def on_message(message):
     if message.author == client.user:
         return
     if str(message.type) == 'MessageType.new_member':
+
         return
-    if message.content[0] == '!' and message.content[1] == '!':
+    if message.content[0] == '$':
         response = BOT.command(message.content)
         color = random.randint(0,16777215)
         embed = discord.Embed(
@@ -55,12 +62,5 @@ async def on_message(message):
             embed.set_thumbnail(url = 'https://img.icons8.com/fluent/2x/cancel.png')
         await message.channel.send(embed = embed)
         await message.delete()
-
-@client.event
-async def on_member_join(member):
-    await member.create_dm()
-    await member.dm_channel.send(
-        f'Hi {member.name}, welcome to my Discord server!'
-    )
 
 client.run(TOKEN)
