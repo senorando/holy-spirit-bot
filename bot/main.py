@@ -22,7 +22,7 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    embedded_dm = embeds.DM_EMBED
+    embedded_dm = embeds.DM
     await member.create_dm()
     await member.dm_channel.send(embed = embedded_dm)
     if(member.nick == None):
