@@ -28,7 +28,7 @@ DM = discord.Embed(
         '\n**4.** If you haven\'t noticed already, I\'ve changed your nickname within the server so please change it to your actual name!🤭' +
         '\n\n➙ Once you\'ve agreed to the rules in our [welcome channel](https://discord.gg/mxvTcgwf2n), head over to our [roles channel](https://discord.gg/KKZzjq2D8u) and select your school!' +
         '\n➙ After that, share with us your favorite Bible verse by going into the [general channel](https://discord.gg/XQrHFugAGE) and typing the following:' +
-        '\n➙ `$bible book chapter verse`'),
+        '\n➙ `$bible book chapter verse` ***note:*** *substitute the values of \'book,\' \'chapter,\' and \'verse\'*'),
     color = 0x00f1ff)
 DM.set_thumbnail(url = THUMBNAIL['DM'])
 

@@ -1,4 +1,4 @@
-import discord
+import discord, asyncio
 import os, random
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -17,13 +17,24 @@ BOT = bot_commands.spiritBot()
 
 @client.event
 async def on_ready():
-    await client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.listening, name = 'the Word of God'))
+    rand_status = random.randint(0, 4)
+    if rand_status == 0:
+        await client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.listening, name = 'the Word of God'))
+    elif rand_status == 1:
+        await client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.listening, name = 'Worship Music'))
+    elif rand_status == 2:
+        await client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = 'a sermon'))
+    elif rand_status == 3:
+        await client.change_presence(status = discord.Status.online, activity = discord.Activity(type = discord.ActivityType.watching, name = 'The Passion of the Christ'))
     print("I am online")
 
 @client.event
 async def on_member_join(member):
     embedded_dm = embeds.DM
     await member.create_dm()
+    async for message in member.history(limit = 15):
+        if message.author.id == client.user.id:
+            await message.delete()
     await member.dm_channel.send(embed = embedded_dm)
     if(member.nick == None):
         await member.edit(nick = 'First Last 📛')
@@ -97,5 +108,9 @@ async def on_message(message):
         elif message.content[2:].lower() == 'thanks':
             await message.channel.send(embed = embeds.THANKS)
             await message.delete()
+
+@client.event
+async def on_disconnect():
+    await client.change_presence(status = discord.Status.dnd, activity = discord.Activity(type = discord.ActivityType.watching, name = 'myself get updated :D'))
 
 client.run(TOKEN)
