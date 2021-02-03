@@ -109,8 +109,4 @@ async def on_message(message):
             await message.channel.send(embed = embeds.THANKS)
             await message.delete()
 
-@client.event
-async def on_disconnect():
-    await client.change_presence(status = discord.Status.dnd, activity = discord.Activity(type = discord.ActivityType.watching, name = 'myself get updated :D'))
-
 client.run(TOKEN)
