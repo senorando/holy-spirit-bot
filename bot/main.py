@@ -1,6 +1,7 @@
 import discord, asyncio
 import os, random
 from os.path import join, dirname
+from discord.errors import NotFound
 from dotenv import load_dotenv
 from discord.utils import get
 
@@ -14,6 +15,21 @@ load_dotenv(DOTENV_PATH)
 
 TOKEN = os.getenv('BOT_TOKEN')
 BOT = bot_commands.spiritBot()
+
+def choose_embed(embed):
+    if embed.lower() == 'dm':
+        return embeds.DM
+    elif embed.lower() == 'welcome':
+        return embeds.WELCOME
+    elif embed.lower() == 'nickname':
+        return embeds.NICKNAME
+    elif embed.lower() == 'roles':
+        return embeds.ROLES
+    elif embed.lower() == 'discord':
+        return embeds.DISCORD
+    elif embed.lower() == 'thanks':
+        return embeds.THANKS
+    return embeds.ERR_404
 
 @client.event
 async def on_ready():
@@ -92,21 +108,33 @@ async def on_message(message):
         await message.channel.send(embed = embed)
         await message.delete()       
     
+    elif message.content[0] == '.' and msg[0][1:].lower() == 'update':
+        if len(msg) != 3:
+            await message.channel.send(embed = embeds.INC_PARAMS, delete_after = 30)
+        else:
+            msgID = int(msg[1])
+            try:
+                msg_edit = await message.channel.fetch_message(msgID)
+                embed = choose_embed(msg[2])
+                if embed == embeds.ERR_404:
+                    await message.channel.send(embed = embeds.ERR_404, delete_after = 30)
+                else:
+                    await msg_edit.edit(embed = embed)
+            except NotFound:
+                await message.channel.send(embed = embeds.DNE, delete_after = 30)
+        await message.delete()
+    
     elif message.content[0] == '.' and message.content[1] == '$':
         if message.content[2:].lower() == 'welcome':
             await message.channel.send(embed = embeds.WELCOME)
-            await message.delete()
         elif message.content[2:].lower() == 'nickname':
             await message.channel.send(embed = embeds.NICKNAME)
-            await message.delete()
         elif message.content[2:].lower() == 'roles':
             await message.channel.send(embed = embeds.ROLES)
-            await message.delete()
         elif message.content[2:].lower() == 'discord':
             await message.channel.send(embed = embeds.DISCORD)
-            await message.delete()
         elif message.content[2:].lower() == 'thanks':
             await message.channel.send(embed = embeds.THANKS)
-            await message.delete()
+        await message.delete()
 
 client.run(TOKEN)

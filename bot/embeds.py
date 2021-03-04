@@ -1,4 +1,4 @@
-import discord
+import discord, random
 '''
     discord.Embed Parameters ALL PARAMETERS ARE OPTIONAL
         title = string              The title of the embed
@@ -43,17 +43,17 @@ WELCOME.set_thumbnail(url = THUMBNAIL['WELCOME'])
 
 NICKNAME = discord.Embed(
     title =  'Please Change Your Nickname!',
-    description = 'Being as we want to keep things clean in this server we would like it if everyone would change their name upon joining 🙏'+
-                '\n\nFrom the right side of your screen, simply right click on yourself and click `Change Nickname`'+
-                '\n\nPlease change it to your first and last name so we may be able to identify who you are'+
-                '\n\nYour name change will only be visible in this server so don\'t worry about revealing your name if you\'re in other Discord servers!',
+    description = 'We want to keep things clean in this server. Please change your nickname to your first and last name upon joining 🙏'+
+                '\n**Computer**\n➙ Click the server name in the top left corner\n➙ Click `Change Nickname`'+
+                '\n**Mobile**\n➙ Tap on the 3 lines on the top left\n➙ Tap on the 3 dots\n➙ Tap `Change Nickname`'+
+                '\n*Your new nickname will only be visible in this server so your name won\'t be shown in other Discord servers!*',
     color = 0xff9a00,)
 NICKNAME.set_thumbnail(url = THUMBNAIL['NICKNAME'])
 NICKNAME.set_footer(text = 'Thank you! 😇')
 
 ROLES = discord.Embed(
     title = 'Tell Us Which School You Go To!',
-    description = 'Visit the [roles channel](https://discord.gg/KKZzjq2D8u) to show us what school you go to and receive a cool color when you chat! God bless you!',
+    description = 'Visit the roles channel to show us what school you go to and receive a cool color when you chat! God bless you!',
     color = 0xff9a00,)
 ROLES.set_thumbnail(url = THUMBNAIL['ROLES'])
 
@@ -66,6 +66,20 @@ DISCORD.set_thumbnail(url = THUMBNAIL['DISCORD'])
 
 THANKS = discord.Embed(
     title = 'Join us in fellowship!',
-    description = 'To access the rest of the server and join us in fellowship, click on the bread and wine below! Enjoy your time and God bless you!',
+    description = 'To access the rest of the server and join us in fellowship, click on the bread and wine below! Enjoy your time and God bless you!' +
+                '\n\n**Relevant Links**\n➙ [Roles Channel](https://discord.gg/KKZzjq2D8u)' +
+                '\n➙ [Invite Link](https://discord.gg/mxvTcgwf2n)',
     color = 0x00ffff,)
 THANKS.set_thumbnail(url = THUMBNAIL['THANKS'])
+
+DNE = discord.Embed(
+    title = 'Message ID doesn\'t exist',
+    color = 0xff0000,)
+    
+INC_PARAMS = discord.Embed(
+    title = 'Incorrect number of parameters',
+    color = 0xff0000,)
+
+ERR_404 = discord.Embed(
+    title = 'Error 404: Not Found',
+    color = 0xff0000,)

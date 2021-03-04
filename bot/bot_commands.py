@@ -93,16 +93,6 @@ class spiritBot:
             'foot': foot
         }
         return embedded_res
-    
-    def bible_new(self, params):
-        url = 'https://api.scripture.api.bible/v1/bibles'
-        headers = {
-            'api-key': '3ad1f969a079bb8fafa7830e17cdf353',
-        }
-        response = requests.request("GET", url, headers=headers).json()
-        print(response)
-
-        return response
 
     def command(self, input):
         RES = {
